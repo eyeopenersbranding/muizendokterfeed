@@ -1,0 +1,14 @@
+<option value="Muizen">Muizen</option>
+<option value="Motten">Motten</option>
+<option value="Mieren">Mieren</option>
+<option value="Ratten">Ratten</option>
+<option value="Vliegen">Vliegen</option>
+<option value="Wespen">Wespen</option>
+<option value="Spinnen">Spinnen</option>
+<option value="Vlooien">Vlooien</option>
+<option value="Bedwantsen">Bedwantsen</option>
+<option value="Zilvervisjes">Zilvervisjes</option>
+<option value="Tapijtkevers">Tapijtkevers</option>
+<option value="Vogels">Vogels</option>
+<option value="Kakkerlakken">Kakkerlakken</option>
+<option value="Houtworm">Houtworm</option>
