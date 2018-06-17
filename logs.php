@@ -5,7 +5,7 @@ include_once 'dbconnect.php';
 
 
 if (isset($_SESSION['usr_id'])) {
-    
+
 } else {
     header('Location: login.php');
 
@@ -17,12 +17,12 @@ include 'page_includes/ikwil_redirect_core.php';
 <?php include 'page_includes/header.php';?>
 
 <body>
-	
-	
+
+
 	<?php include 'page_includes/aside.php';?>
         <!-- Left Panel -->
 
-    
+
 
 
     <!-- Right Panel -->
@@ -66,14 +66,13 @@ include 'page_includes/ikwil_redirect_core.php';
 							<thead>
 							  <tr>
 								<th>Datum</th>
-								<th>Tijd</th>
 								<th>Naam</th>
 								<th>Telefoon</th>
 								<th>Notities / reden</th>
 							  </tr>
 							</thead>
 							<tbody>
-							 <?php 
+							 <?php
 						//selecteer alle gebruikers die toegang hebben tot de volledige website
 						$sql = "SELECT * FROM md_log WHERE log_user_id = '$user_id'";
 						$result = mysqli_query($con, $sql);
@@ -83,23 +82,21 @@ include 'page_includes/ikwil_redirect_core.php';
 						while($row = $result->fetch_assoc()) {
 
 							  $log_date = $row['log_date'];
-							  $log_time = $row['log_time'];
 							  $log_name = $row['log_name'];
 							  $log_tel = $row['log_tel'];
 							  $log_notes = $row['log_notes'];
-							
+
 					echo"
 						<tr>
 							<td>$log_date</td>
-							<td>$log_time</td>
 							<td>$log_name</td>
 							<td>$log_tel</td>
 							<td>$log_notes</td>
-						
+
 						</tr>
-				   ";		
+				   ";
 								}
-							} 
+							}
 
 							else {
 							   echo "  <div class='alert alert-warning alert-dismissable' role='alert'>
@@ -140,7 +137,7 @@ include 'page_includes/ikwil_redirect_core.php';
     <script src="assets/js/lib/data-table/buttons.print.min.js"></script>
     <script src="assets/js/lib/data-table/buttons.colVis.min.js"></script>
     <script src="assets/js/lib/data-table/datatables-init.js"></script>
-	
+
 	 <script type="text/javascript">
         $(document).ready(function() {
           $('#bootstrap-data-table-export').DataTable();
