@@ -22,9 +22,6 @@ include 'page_includes/ikwil_redirect_core.php';
 	<?php include 'page_includes/aside.php';?>
         <!-- Left Panel -->
 
-
-
-
     <!-- Right Panel -->
 
     <div id="right-panel" class="right-panel">
