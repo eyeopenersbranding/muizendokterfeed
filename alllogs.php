@@ -58,59 +58,62 @@ include 'page_includes/ikwil_redirect_core.php';
 
                 <div class="col-md-12">
 
+                  <form method="post" action="">
+                  <input type="text" placeholder="Zoekopdracht" name="query" />
+                  <input type="submit" value="Zoeken" name="completedsearch" />
+                  </form>
+                  <br /><br />
 
 
-                    <div class="card">
-                        <div class="card-header">
-                            <strong class="card-title">Data Table</strong>
-                        </div>
-                        <div class="card-body">
-						  <table id="bootstrap-data-table" class="table table-striped table-bordered">
-							<thead>
-							  <tr>
-								<th>Datum</th>
-								<th>Naam</th>
-								<th>Telefoon</th>
-								<th>Notities / reden</th>
-							  </tr>
-							</thead>
-							<tbody>
-							 <?php
-						//selecteer alle gebruikers die toegang hebben tot de volledige website
-						$sql = "SELECT * FROM md_log WHERE log_user_id = '$user_id'";
-						$result = mysqli_query($con, $sql);
+                  <table class="table table-striped table-bordered" style="width:100%">
+                    <tr>
+                      <th>Datum</th>
+                      <th>Naam</th>
+                      <th>Telefoonnummer</th>
+                      <th>Notitie/reden</th>
+                      <th>Behandelaar</th>
+                    </tr>
 
-						if($result -> num_rows >0){
 
-						while($row = $result->fetch_assoc()) {
+                  <?php
+                if(isset($_POST['completedsearch']))
+                {
+                        $term = $_POST['query'];
 
-							  $log_date = $row['log_date'];
-							  $log_name = $row['log_name'];
-							  $log_tel = $row['log_tel'];
-							  $log_notes = $row['log_notes'];
+$qu = "SELECT * FROM md_log WHERE log_date LIKE '%{$term}%' OR log_name LIKE '%{$term}%' OR log_tel LIKE '%{$term}%' OR log_notes LIKE '%{$term}%' ";
+$qu = mysqli_query($con, $qu);//selects the row that contains ANYTHING like the submitted string
+                        echo "
 
-					echo"
-						<tr>
-							<td>$log_date</td>
-							<td>$log_name</td>
-							<td>$log_tel</td>
-							<td>$log_notes</td>
+                                        ";
+                        while($row = mysqli_fetch_array($qu))
+                                   {
 
-						</tr>
-				   ";
-								}
-							}
 
-							else {
-							   echo "  <div class='alert alert-warning alert-dismissable' role='alert'>
-										  <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-										  <i class='fa fa-exclamation-triangle' aria-hidden='true'></i> Geen logboek gegevens gevonden
-										</div>";
-								}?>
-							</tbody>
-						  </table>
-                        </div>
-                    </div>
+                                        echo "<tr><td>";
+                                        echo $row['log_date'];
+                                        echo "</td>";
+                                        echo "<td>";
+                                        echo $row['log_name'];
+                                        echo "</td>";
+                                        echo "<td>";
+                                        echo $row['log_tel'];
+                                       echo "</td><td>";
+                                       echo $row['log_notes'];
+                                        echo "</td><td>";
+                                          echo $row['log_user_id'];
+                                                echo "</tr></td>";
+                        }
+                }
+        ?>
+        </tr>
+  </table>
+
+
+
+
+
+
+
                 </div>
 
 
