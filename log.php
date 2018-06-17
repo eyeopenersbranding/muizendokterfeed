@@ -5,7 +5,7 @@ include_once 'dbconnect.php';
 
 
 if (isset($_SESSION['usr_id'])) {
-    
+
 } else {
     header('Location: login.php');
 
@@ -21,11 +21,11 @@ $sql = "SELECT land FROM md_users WHERE id = '$user_id'";
 $result = mysqli_query($con, $sql);
 
 while($row = $result->fetch_assoc()) {
-	
+
 //Het recht van de gebruiker
 $land = $row['land'];
- 
-} 
+
+}
 
 //Script activeren wanneer de submit knop wordt geactiveerd
 if(isset($_POST['startland'])&& (!empty($_POST)) && $_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -34,16 +34,16 @@ if(isset($_POST['startland'])&& (!empty($_POST)) && $_SERVER['REQUEST_METHOD'] =
 
 	//Alle variable opsommen en ontrekken van het formulier
 	$land_option = $_POST['land'];
-	
+
 	{
-	
-	$sql = "UPDATE md_users SET 
+
+	$sql = "UPDATE md_users SET
 
 	land = '$land_option'
 
-	WHERE id = '$user_id'";	
+	WHERE id = '$user_id'";
 	$result = mysqli_query($con, $sql);
-		
+
  header('Location: log.php?name=&tel=');
 
 	}
@@ -60,9 +60,9 @@ if(isset($_POST['presubmit'])&& (!empty($_POST)) && $_SERVER['REQUEST_METHOD'] =
 	//Alle variable opsommen en ontrekken van het formulier
 	$prename = $_POST['prename'];
 	$pretel = $_POST['pretel'];
-	
+
 	{
-	
+
  header("Location: log.php?name=$prename&tel=$pretel");
 
 	}
@@ -78,28 +78,28 @@ if(isset($_POST['presubmit'])&& (!empty($_POST)) && $_SERVER['REQUEST_METHOD'] =
 
 
 
-date_default_timezone_set('Europe/Amsterdam');	
+date_default_timezone_set('Europe/Amsterdam');
        	setlocale(LC_ALL, 'nl_NL');
 
 
 $date_today = date("Y-m-d");
 
-
+$accountname = $_SESSION['usr_name'];
 //======================================================================
 // Nederland
 //======================================================================
 
 
 
-$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_greenred = 'Groen') AND (log_land = 'NL') AND (log_user_id = '$user_id')";
+$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_greenred = 'Groen') AND (log_land = 'NL') AND (log_user_id = '$accountname')";
 $result = mysqli_query($con, $sql);
 
 if ($result)
 	{
 	 $count = array();
-	
+
 		foreach($result as $row)
-			
+
 		$count[] = $row['log_id'];
 			{
 			$total_green_nl = count($count);
@@ -109,15 +109,15 @@ if ($result)
 	$total_green_nl = "0";
 	}
 
-$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_greenred = 'Rood') AND (log_land = 'NL') AND (log_user_id = '$user_id')";
+$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_greenred = 'Rood') AND (log_land = 'NL') AND (log_user_id = '$accountname')";
 $result = mysqli_query($con, $sql);
 
 if ($result)
 	{
 	 $count = array();
-	
+
 		foreach($result as $row)
-			
+
 		$count[] = $row['log_id'];
 			{
 			$total_red_nl  = count($count);
@@ -128,15 +128,15 @@ if ($result)
 	}
 
 
-$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_cancelled = '1') AND (log_land = 'NL') AND (log_user_id = '$user_id')";
+$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_cancelled = '1') AND (log_land = 'NL') AND (log_user_id = '$accountname')";
 $result = mysqli_query($con, $sql);
 
 if ($result)
 	{
 	 $count = array();
-	
+
 		foreach($result as $row)
-			
+
 		$count[] = $row['log_id'];
 			{
 			$total_cancelled_nl  = count($count);
@@ -146,15 +146,15 @@ if ($result)
 	$total_cancelled_nl = "0";
 	}
 
-$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_continuation = '1') AND (log_land = 'NL') AND (log_user_id = '$user_id')";
+$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_continuation = '1') AND (log_land = 'NL') AND (log_user_id = '$accountname')";
 $result = mysqli_query($con, $sql);
 
 if ($result)
 	{
 	 $count = array();
-	
+
 		foreach($result as $row)
-			
+
 		$count[] = $row['log_id'];
 			{
 			$total_continuation_nl  = count($count);
@@ -164,15 +164,15 @@ if ($result)
 	$total_continuation_nl = "0";
 	}
 
-$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_question = '1') AND (log_land = 'NL') AND (log_user_id = '$user_id')";
+$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_question = '1') AND (log_land = 'NL') AND (log_user_id = '$accountname')";
 $result = mysqli_query($con, $sql);
 
 if ($result)
 	{
 	 $count = array();
-	
+
 		foreach($result as $row)
-			
+
 		$count[] = $row['log_id'];
 			{
 			$total_question_nl  = count($count);
@@ -182,16 +182,16 @@ if ($result)
 	$total_question_nl = "0";
 	}
 
-	
-	$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_colleague = '1') AND (log_land = 'NL') AND (log_user_id = '$user_id')";
+
+	$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_colleague = '1') AND (log_land = 'NL') AND (log_user_id = '$accountname')";
 $result = mysqli_query($con, $sql);
 
 if ($result)
 	{
 	 $count = array();
-	
+
 		foreach($result as $row)
-			
+
 		$count[] = $row['log_id'];
 			{
 			$total_colleague_nl  = count($count);
@@ -220,15 +220,15 @@ $ratio_final_nl = $ratio_calculated_nl * 100;
 
 
 
-$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_greenred = 'Groen') AND (log_land = 'BE') AND (log_user_id = '$user_id')";
+$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_greenred = 'Groen') AND (log_land = 'BE') AND (log_user_id = '$accountname')";
 $result = mysqli_query($con, $sql);
 
 if ($result)
 	{
 	 $count = array();
-	
+
 		foreach($result as $row)
-			
+
 		$count[] = $row['log_id'];
 			{
 			$total_green_be = count($count);
@@ -238,15 +238,15 @@ if ($result)
 	$total_green_be = "0";
 	}
 
-$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_greenred = 'Rood') AND (log_land = 'BE') AND (log_user_id = '$user_id')";
+$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_greenred = 'Rood') AND (log_land = 'BE') AND (log_user_id = '$accountname')";
 $result = mysqli_query($con, $sql);
 
 if ($result)
 	{
 	 $count = array();
-	
+
 		foreach($result as $row)
-			
+
 		$count[] = $row['log_id'];
 			{
 			$total_red_be  = count($count);
@@ -257,15 +257,15 @@ if ($result)
 	}
 
 
-$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_cancelled = '1') AND (log_land = 'BE') AND (log_user_id = '$user_id')";
+$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_cancelled = '1') AND (log_land = 'BE') AND (log_user_id = '$accountname')";
 $result = mysqli_query($con, $sql);
 
 if ($result)
 	{
 	 $count = array();
-	
+
 		foreach($result as $row)
-			
+
 		$count[] = $row['log_id'];
 			{
 			$total_cancelled_be  = count($count);
@@ -275,15 +275,15 @@ if ($result)
 	$total_cancelled_be = "0";
 	}
 
-$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_continuation = '1') AND (log_land = 'BE') AND (log_user_id = '$user_id')";
+$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_continuation = '1') AND (log_land = 'BE') AND (log_user_id = '$accountname')";
 $result = mysqli_query($con, $sql);
 
 if ($result)
 	{
 	 $count = array();
-	
+
 		foreach($result as $row)
-			
+
 		$count[] = $row['log_id'];
 			{
 			$total_continuation_be  = count($count);
@@ -293,15 +293,15 @@ if ($result)
 	$total_continuation_be = "0";
 	}
 
-$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_question = '1') AND (log_land = 'BE') AND (log_user_id = '$user_id')";
+$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_question = '1') AND (log_land = 'BE') AND (log_user_id = '$accountname')";
 $result = mysqli_query($con, $sql);
 
 if ($result)
 	{
 	 $count = array();
-	
+
 		foreach($result as $row)
-			
+
 		$count[] = $row['log_id'];
 			{
 			$total_question_be  = count($count);
@@ -311,16 +311,16 @@ if ($result)
 	$total_question_be = "0";
 	}
 
-	
-	$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_colleague = '1') AND (log_land = 'BE') AND (log_user_id = '$user_id')";
+
+	$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_colleague = '1') AND (log_land = 'BE') AND (log_user_id = '$accountname')";
 $result = mysqli_query($con, $sql);
 
 if ($result)
 	{
 	 $count = array();
-	
+
 		foreach($result as $row)
-			
+
 		$count[] = $row['log_id'];
 			{
 			$total_colleague_be  = count($count);
@@ -357,15 +357,15 @@ $ratio_final_be = $ratio_calculated_be * 100;
 
 
 
-$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_greenred = 'Groen') AND (log_land = 'Houtworm') AND (log_user_id = '$user_id')";
+$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_greenred = 'Groen') AND (log_land = 'Houtworm') AND (log_user_id = '$accountname')";
 $result = mysqli_query($con, $sql);
 
 if ($result)
 	{
 	 $count = array();
-	
+
 		foreach($result as $row)
-			
+
 		$count[] = $row['log_id'];
 			{
 			$total_green_ho = count($count);
@@ -375,15 +375,15 @@ if ($result)
 	$total_green_ho = "0";
 	}
 
-$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_greenred = 'Rood') AND (log_land = 'Houtworm') AND (log_user_id = '$user_id')";
+$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_greenred = 'Rood') AND (log_land = 'Houtworm') AND (log_user_id = '$accountname')";
 $result = mysqli_query($con, $sql);
 
 if ($result)
 	{
 	 $count = array();
-	
+
 		foreach($result as $row)
-			
+
 		$count[] = $row['log_id'];
 			{
 			$total_red_ho  = count($count);
@@ -394,15 +394,15 @@ if ($result)
 	}
 
 
-$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_cancelled = '1') AND (log_land = 'Houtworm') AND (log_user_id = '$user_id')";
+$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_cancelled = '1') AND (log_land = 'Houtworm') AND (log_user_id = '$accountname')";
 $result = mysqli_query($con, $sql);
 
 if ($result)
 	{
 	 $count = array();
-	
+
 		foreach($result as $row)
-			
+
 		$count[] = $row['log_id'];
 			{
 			$total_cancelled_ho  = count($count);
@@ -412,15 +412,15 @@ if ($result)
 	$total_cancelled_ho = "0";
 	}
 
-$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_continuation = '1') AND (log_land = 'Houtworm') AND (log_user_id = '$user_id')";
+$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_continuation = '1') AND (log_land = 'Houtworm') AND (log_user_id = '$accountname')";
 $result = mysqli_query($con, $sql);
 
 if ($result)
 	{
 	 $count = array();
-	
+
 		foreach($result as $row)
-			
+
 		$count[] = $row['log_id'];
 			{
 			$total_continuation_ho  = count($count);
@@ -430,15 +430,15 @@ if ($result)
 	$total_continuation_ho = "0";
 	}
 
-$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_question = '1') AND (log_land = 'Houtworm') AND (log_user_id = '$user_id')";
+$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_question = '1') AND (log_land = 'Houtworm') AND (log_user_id = '$accountname')";
 $result = mysqli_query($con, $sql);
 
 if ($result)
 	{
 	 $count = array();
-	
+
 		foreach($result as $row)
-			
+
 		$count[] = $row['log_id'];
 			{
 			$total_question_ho  = count($count);
@@ -448,16 +448,16 @@ if ($result)
 	$total_question_ho = "0";
 	}
 
-	
-	$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_colleague = '1') AND (log_land = 'Houtworm') AND (log_user_id = '$user_id')";
+
+	$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND (log_colleague = '1') AND (log_land = 'Houtworm') AND (log_user_id = '$accountname')";
 $result = mysqli_query($con, $sql);
 
 if ($result)
 	{
 	 $count = array();
-	
+
 		foreach($result as $row)
-			
+
 		$count[] = $row['log_id'];
 			{
 			$total_colleague_ho  = count($count);
@@ -482,12 +482,12 @@ $ratio_final_ho = $ratio_calculated_ho * 100;
 
 
 <body>
-	
-	
+
+
 	<?php include 'page_includes/aside.php';?>
         <!-- Left Panel -->
 
-    
+
 
 
     <!-- Right Panel -->
@@ -519,12 +519,12 @@ $ratio_final_ho = $ratio_calculated_ho * 100;
 
         <div class="content mt-3">
             <div class="animated fadeIn">
-				
+
 				<div class="col-sm-3">
 					<form role="form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
 						<div class="card-header"><strong><h2>Divisie: <?php echo "$land"; ?></h2></strong></div>
 					  <div class="card-body card-block">
-						  
+
 						   <div class="row form-group">
                             <div class="col-12 col-md-9">
                               <select name="land" id="select" class="form-control">
@@ -538,7 +538,7 @@ $ratio_final_ho = $ratio_calculated_ho * 100;
 						  <button type="submit" name="startland" class="btn btn-outline-success">Land wijzigen</button>
 
 					  </div>
-					</form>  
+					</form>
                 </div>
 				<div class="col-sm-8">
 				<form role="form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
@@ -550,16 +550,16 @@ $ratio_final_ho = $ratio_calculated_ho * 100;
 									<div class="form-group"><label for="vat" class=" form-control-label">Klantnaam</label>
 									<input type="text" name="prename" id="vat" value="<?php echo "$prename" ?>" class="form-control">
 									</div>
-						
-									 
-									  <button type="submit" name="presubmit" class="btn btn-outline-success">Alvast invoeren</button>
-				
-								  </div>
-								</form>       
-				</div>
-			
 
-            
+
+									  <button type="submit" name="presubmit" class="btn btn-outline-success">Alvast invoeren</button>
+
+								  </div>
+								</form>
+				</div>
+
+
+
 
                     <div class="col-sm-12 mb-4">
                         <div class="card-group">
@@ -583,7 +583,7 @@ $ratio_final_ho = $ratio_calculated_ho * 100;
                                     <div class="progress progress-xs mt-3 mb-0 bg-light" style="width: 40%; height: 5px;"></div>
                                 </div>
                             </div>
-                       
+
                             <div class="card col-lg-2 col-md-6 no-padding no-shadow">
                                 <div class="card-body bg-flat-color-3">
                                     <div class="h1 text-right mb-4">
@@ -594,8 +594,8 @@ $ratio_final_ho = $ratio_calculated_ho * 100;
                                     <div class="progress progress-xs mt-3 mb-0 bg-light" style="width: 40%; height: 5px;"></div>
                                 </div>
                             </div>
-                          
-                          
+
+
                             <div class="card col-lg-2 col-md-6 no-padding no-shadow">
                                 <div class="card-body bg-flat-color-1">
                                     <div class="h1 text-light text-right mb-4">
@@ -619,10 +619,10 @@ $ratio_final_ho = $ratio_calculated_ho * 100;
                         </div>
 
                     </div>
-				
-				
+
+
 				<?php if ($land == "NL") { ?>
-				
+
 						<br />
 						<br />
 						 <div class="col-lg-6">
@@ -664,10 +664,10 @@ $ratio_final_ho = $ratio_calculated_ho * 100;
 							</div>
 						</div>
 
-				
+
 					<?php } if ($land == "BE") { ?>
-				
-				
+
+
 						<br />
 						<br />
 						 <div class="col-lg-6">
@@ -708,11 +708,11 @@ $ratio_final_ho = $ratio_calculated_ho * 100;
 								</div>
 							</div>
 						</div>
-				
-				
+
+
 				<?php } if ($land == "Houtworm") { ?>
-				
-				
+
+
 						<br />
 						<br />
 						 <div class="col-lg-6">
@@ -753,17 +753,17 @@ $ratio_final_ho = $ratio_calculated_ho * 100;
 								</div>
 							</div>
 						</div>
-				
-				
-			
+
+
+
 
 					<?php }?>
-				
-			
 
-              
 
-                  
+
+
+
+
 
 
 
