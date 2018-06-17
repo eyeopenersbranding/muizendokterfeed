@@ -6,12 +6,12 @@ require_once 'page_includes/data_config.php';
 
 
 if (isset($_SESSION['usr_id'])) {
-    
+
 } else {
     header('Location: login.php');
 
 }
-
+$accountname = $_SESSION['usr_name'];
 $prename = $_GET['name'];
 $pretel = $_GET['tel'];
 
@@ -37,76 +37,76 @@ include 'page_includes/ikwil_redirect_core.php';
 
     //Script activeren wanneer de submit knop wordt geactiveerd
     if(isset($_POST['submit_new_prospect'])&& (!empty($_POST)) && $_SERVER['REQUEST_METHOD'] == 'POST'){
-		
+
 		$error = false;
-		
+
 		//Alle variable opsommen en ontrekken van het formulier
 		$log_name = $_POST['log_name'];
 		$log_tel = $_POST['log_tel'];
 		$log_notes = $_POST['log_notes'];
 
-		
+
 		//Check voor de klantnaam
 		if (empty($log_name)) {
 		$error = true;
 		$log_name_error = ($error_notification['log_name_error']);
 		$error_message = ($error_notification['log_name_error']);
 		}
-		
+
 		//Check voor het telefoonnummer
 		if (empty($log_tel)) {
 		$error = true;
 		$log_tel_error = ($error_notification['log_tel_error']);
 		$error_message = ($error_notification['log_tel_error']);
 		}
-	
-	
-		
+
+
+
 		//Als er geen error is ga dan door met het updaten van de gegevens
 		if (!$error){
-			
-			date_default_timezone_set('Europe/Amsterdam');	
+
+			date_default_timezone_set('Europe/Amsterdam');
 			setlocale(LC_ALL, 'nl_NL');
-			
-			
+
+
 			$log_date = date('Y-m-d h:i:s a', time());
-			
+
 			$log_question = "1";
-			
+
 			$sql = "INSERT INTO md_log
 
 			(
 			log_date,
-			log_name, 
+			log_name,
 			log_tel,
 			log_notes,
 			log_question,
 			log_user_id,
 			log_land
-			) 
+			)
 			VALUES (
 			'$log_date',
-			'$log_name', 
+			'$log_name',
 			'$log_tel',
 			'$log_notes',
 			'$log_question',
-			'$user_id',
+			'$accountname',
 			'$land'
-			)";	
+			)";
 
 			$result = mysqli_query($con, $sql);
 
-			if ($result === TRUE) 
-			{	
+			if ($result === TRUE)
+			{
 				//Succes melding printen
 				$log_success = ($success_notification['log_success']);
 				$success_message = ($success_notification['log_success']);
-				
+
 				//Ververs pagina om de foutmelding te dumpen
 				header("Refresh:1; url=log.php?name=&tel=");
-			} 
-			else 
-				
+			}
+			else
+
 			{
 				//Wanneer de data niet verwerkt kan worden in de database printen we een fatale fout
     			echo "Er is een ernstige fout opgetreden";
@@ -118,12 +118,12 @@ include 'page_includes/ikwil_redirect_core.php';
 <?php include 'page_includes/header.php';?>
 
 <body>
-	
-	
+
+
 	<?php include 'page_includes/aside.php';?>
         <!-- Left Panel -->
 
-    
+
 
 
     <!-- Right Panel -->
@@ -155,13 +155,13 @@ include 'page_includes/ikwil_redirect_core.php';
 
         <div class="content mt-3">
             <div class="animated fadeIn">
-			
+
 					<!-- Alle foutmeldingen worden geprint in de alert box -->
 					<?php if (isset($error_message)) { ?>
 						<div class="alert alert-danger">
 						 <button type="button" aria-hidden="true" class="close"><i class="material-icons">close</i></button>
 							 <span>
-								<?php if (isset($log_name_error)) echo $log_name_error; ?> 
+								<?php if (isset($log_name_error)) echo $log_name_error; ?>
 								<?php if (isset($log_tel_error)) echo $log_tel_error; ?>
 							</span></div>
 					<?php } ?>
@@ -171,17 +171,17 @@ include 'page_includes/ikwil_redirect_core.php';
 						<div class="alert alert-success">
 						 <button type="button" aria-hidden="true" class="close"><i class="material-icons">close</i></button>
 							 <span>
-								<?php if (isset($log_success)) echo $log_success; ?> 
+								<?php if (isset($log_success)) echo $log_success; ?>
 							</span></div>
 					<?php } ?>
-               
-                    
 
-            
+
+
+
 
                     <div class="col-sm-12 mb-4">
-                
-						
+
+
 						      <div class="col-lg-6">
 								<div class="card">
 								<form role="form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
@@ -193,7 +193,7 @@ include 'page_includes/ikwil_redirect_core.php';
 									<div class="form-group"><label for="vat" class=" form-control-label">Telefoonnummer</label>
 									<input type="text" name="log_tel" id="vat" value="<?php echo "$pretel" ?>" class="form-control">
 									</div>
-									  
+
 									    <div class="row form-group">
 											<div class="col col-md-3"><label for="select" class=" form-control-label">Reden</label></div>
 											<div class="col-12 col-md-9">
@@ -210,23 +210,23 @@ include 'page_includes/ikwil_redirect_core.php';
 											  </select>
 											</div>
 										  </div>
-									  
-									
+
+
 									  <button type="submit" name="submit_new_prospect" class="btn btn-outline-success">Verwerken</button>
-				
+
 								  </div>
 								</form>
 								</div>
 							  </div>
 
-					
+
 
                     </div>
 
 
-               
 
-                  
+
+
 
 
 
