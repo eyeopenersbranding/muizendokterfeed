@@ -65,7 +65,7 @@ $date_today = date("Y-m-d");
 
 
                     <div class="card">
-                    
+
 
 
 
@@ -116,7 +116,7 @@ $date_today = date("Y-m-d");
 								}?>
               </tr>
         </table>
-                        <
+                        
                     </div>
                 </div>
 
