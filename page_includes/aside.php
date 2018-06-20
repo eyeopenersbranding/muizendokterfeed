@@ -35,11 +35,11 @@
                         <a href="log.php?name=&tel="> <i class="menu-icon fa fa-th"></i>Logboek</a>
                     </li>
 					<li>
-                        <a href="logs.php"> <i class="menu-icon fa fa-search"></i>Logboek doorzoeken </a>
+                        <a href="logs.php"> <i class="menu-icon fa fa-search"></i>Vandaag ingevoerd (ikzelf)</a>
                     </li>
 
                     <li>
-                                  <a href="alllogs.php"> <i class="menu-icon fa fa-search"></i>Algemeen logboek</a>
+                                  <a href="alllogs.php"> <i class="menu-icon fa fa-search"></i>Centraal logboek (allen)</a>
                               </li>
 					<li>
                         <a href="important-data.php"> <i class="menu-icon fa fa-search"></i>Belangrijke gegevens</a>

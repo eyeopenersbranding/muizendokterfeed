@@ -12,6 +12,10 @@ if (isset($_SESSION['usr_id'])) {
 }
 
 include 'page_includes/ikwil_redirect_core.php';
+$accountname = $_SESSION['usr_name'];
+
+setlocale(LC_ALL, 'nl_NL');
+$date_today = date("Y-m-d");
 ?>
 
 <?php include 'page_includes/header.php';?>
@@ -61,23 +65,22 @@ include 'page_includes/ikwil_redirect_core.php';
 
 
                     <div class="card">
-                        <div class="card-header">
-                            <strong class="card-title">Data Table</strong>
-                        </div>
-                        <div class="card-body">
-						  <table id="bootstrap-data-table" class="table table-striped table-bordered">
-							<thead>
-							  <tr>
-								<th>Datum</th>
-								<th>Naam</th>
-								<th>Telefoon</th>
-								<th>Notities / reden</th>
-							  </tr>
-							</thead>
-							<tbody>
+                    
+
+
+
+                          <table class="table table-striped table-bordered" style="width:100%">
+                            <tr>
+                              <th>Datum</th>
+                              <th>Naam</th>
+                              <th>Telefoonnummer</th>
+                              <th>Notitie/reden</th>
+                              <th>Lead status</th>
+                              <th>Behandelaar</th>
+                            </tr>
 							 <?php
 						//selecteer alle gebruikers die toegang hebben tot de volledige website
-						$sql = "SELECT * FROM md_log WHERE log_user_id = '$user_id'";
+						$sql = "SELECT * FROM md_log WHERE (cast(log_date as date) = '$date_today') AND log_user_id = '$accountname' ORDER BY log_date ASC";
 						$result = mysqli_query($con, $sql);
 
 						if($result -> num_rows >0){
@@ -88,6 +91,8 @@ include 'page_includes/ikwil_redirect_core.php';
 							  $log_name = $row['log_name'];
 							  $log_tel = $row['log_tel'];
 							  $log_notes = $row['log_notes'];
+                $log_greenred = $row['log_greenred'];
+                $log_user_id= $row['log_user_id'];
 
 					echo"
 						<tr>
@@ -95,6 +100,8 @@ include 'page_includes/ikwil_redirect_core.php';
 							<td>$log_name</td>
 							<td>$log_tel</td>
 							<td>$log_notes</td>
+              <td>$log_greenred</td>
+              <td>$log_user_id</td>
 
 						</tr>
 				   ";
@@ -107,9 +114,9 @@ include 'page_includes/ikwil_redirect_core.php';
 										  <i class='fa fa-exclamation-triangle' aria-hidden='true'></i> Geen logboek gegevens gevonden
 										</div>";
 								}?>
-							</tbody>
-						  </table>
-                        </div>
+              </tr>
+        </table>
+                        <
                     </div>
                 </div>
 
